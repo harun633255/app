@@ -10,12 +10,10 @@ from youtube_transcript_api.proxies import WebshareProxyConfig
 app = Flask(_name_)
 CORS(app)  # Enable CORS for Flutter
 
-# ✅ Set OpenAI API key here
-openai_api_key = "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"
-os.environ["OPENAI_API_KEY"] = openai_api_key
-
 # Initialize OpenAI client (new style)
-client = OpenAI()
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_API_KEY")
+)
 
 # Function to extract YouTube video ID
 
@@ -55,9 +53,11 @@ def chunk_text(text, max_chunk_size=3000):
 
     return chunks
 
+
 @app.route('/')
 def index():
     return jsonify({'message': 'Welcome to the YouTube QA API!'})
+
 
 @app.route('/generate_qa', methods=['POST'])
 def generate_qa():
