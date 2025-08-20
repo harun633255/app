@@ -74,6 +74,6 @@ jobs:
       - name: Configure startup command
         run: |
           az webapp config set \
-            --resource-group <YOUR_RESOURCE_GROUP> \
+            --resource-group flask-api-rg \
             --name my-flask-api-2024 \
             --startup-file "gunicorn --bind=0.0.0.0 --timeout 600 app:app"
